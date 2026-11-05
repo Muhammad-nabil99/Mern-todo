@@ -1,23 +1,14 @@
-
 const express = require("express");
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
 require('dotenv').config();
 
-
-
+const PORT = process.env.PORT || 3007;
 const url = process.env.DB_URL || "mongodb://admin:pass123@localhost:27017/?authSource=admin";
 const dbName = "user_db";
 
-
-
 const app = express();
-app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "http://188.40.180.113:3000"
-  ]
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,16 +20,17 @@ MongoClient.connect(url)
 
     db = client.db(dbName);
 
-    app.listen(3007, () => {
-      console.log("🚀 Server running on http://localhost:3007");
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error("❌ MongoDB connection failed:", err);
   });
 
+const router = express.Router();
 
-app.get("/users", async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     if (!db) return res.status(500).send("DB not ready");
 
@@ -50,9 +42,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-
-app.post("/users", async (req, res) => {
-  console.log( req.body.name)
+router.post("/users", async (req, res) => {
   try {
     if (!db) return res.status(500).send("DB not ready");
 
@@ -70,9 +60,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
-
-
-app.delete("/users/:name", async (req, res) => {
+router.delete("/users/:name", async (req, res) => {
   try {
     if (!db) return res.status(500).send("DB not ready");
 
@@ -89,3 +77,12 @@ app.delete("/users/:name", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+// Support both direct routes (/users) and prefixed routes (/api/users)
+app.use("/", router);
+app.use("/api", router);
+
+
+// Support both direct routes (/users) and prefixed routes (/api/users)
+app.use("/", router);
+app.use("/api", router);
