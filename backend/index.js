@@ -30,6 +30,10 @@ MongoClient.connect(url)
 
 const router = express.Router();
 
+router.get("/", (req, res) => {
+  res.send({ status: "API is running" });
+});
+
 router.get("/users", async (req, res) => {
   try {
     if (!db) return res.status(500).send("DB not ready");
@@ -77,11 +81,6 @@ router.delete("/users/:name", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
-// Support both direct routes (/users) and prefixed routes (/api/users)
-app.use("/", router);
-app.use("/api", router);
-
 
 // Support both direct routes (/users) and prefixed routes (/api/users)
 app.use("/", router);
