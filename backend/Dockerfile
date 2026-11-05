@@ -10,7 +10,7 @@ COPY --chown=app:app package*.json ./
 
 # install deps
 RUN npm install
-RUN npm install -g --froce nodemon 
+RUN npm install -g --force nodemon 
 
 # copy source
 COPY --chown=app:app . .

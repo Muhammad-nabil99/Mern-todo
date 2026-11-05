@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 
-const url = process.env.DB_URL // `mongodb://admin:pass123@localhost:27017`;
+const url = process.env.DB_URL || "mongodb://admin:pass123@localhost:27017/?authSource=admin";
 const dbName = "user_db";
 
 

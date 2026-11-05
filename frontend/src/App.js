@@ -25,7 +25,6 @@ function App() {
     if (user){
     try {
       setUsers(users?.filter((u) => u.name !== user.name));
-
       await api.delete(`${usersEndpoint}/${user.name}`);
     } catch (err) {
       setError("Could not delete user!");

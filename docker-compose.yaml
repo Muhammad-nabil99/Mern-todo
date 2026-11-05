@@ -3,7 +3,7 @@ services:
     build:
       context: frontend
     environment:
-      - REACT_APP_API_URL=http://188.40.180.113:3001 
+      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:3001} 
     ports:
       - 3000:3000
   api:
@@ -39,6 +39,12 @@ services:
       - ME_CONFIG_MONGODB_SERVER=db
     depends_on:
       - db
+  nginx : 
+      image : nginx:stable-alpine
+      ports : 
+        - 80:80
+      volumes : 
+        - ""
 volumes:
   mongodb-sarvin:
    
