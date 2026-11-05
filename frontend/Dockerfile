@@ -22,6 +22,8 @@ RUN npm install
 # Copy all project files into container
 COPY --chown=app:app . .
 
+RUN npm run build
+
 # Environment variable for backend API URL
 # NOTE: In Docker Compose, this should usually be overridden there
 ENV REACT_APP_API_URL=http://localhost:3001 
