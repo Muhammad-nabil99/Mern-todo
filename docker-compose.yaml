@@ -40,7 +40,8 @@ services:
     depends_on:
       - db
   nginx : 
-      image : nginx:stable-alpine
+      image : nginx:alpine
+      container_name : mern_todo
       ports : 
         - 80:80
       volumes : 
