@@ -29,8 +29,8 @@ MongoClient.connect(url)
 
     db = client.db(dbName);
 
-    app.listen(3001, () => {
-      console.log("🚀 Server running on http://localhost:3001");
+    app.listen(3007, () => {
+      console.log("🚀 Server running on http://localhost:3007");
     });
   })
   .catch((err) => {
