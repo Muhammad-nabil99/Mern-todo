@@ -10,7 +10,7 @@ services:
     build:
       context: backend
     ports:
-      - 3001:3001
+      - 3007:3007
     environment:
       - DB_URL=mongodb://admin:pass123@db:27017/?authSource=admin
     restart: always

@@ -25,7 +25,7 @@ RUN chown -R app:app /app
 USER app
 
 # port
-EXPOSE 3001
+EXPOSE 3007
 
 # start app
 CMD ["nodemon", "index"]
